@@ -2,7 +2,7 @@ package com.tuvior.adventofcode
 
 import com.tuvior.adventofcode.day.Day
 
-val days = (1 until 31)
+val days = (1..25)
     .map { "%02d".format(it) }
     .map { "com.tuvior.adventofcode.solutions.Day$it" }
     .mapIndexedNotNull { index, className ->
