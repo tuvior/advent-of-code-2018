@@ -13,10 +13,10 @@ class Day05 : Day<String, Int>(5, "Alchemical Reduction") {
     }
 
     override fun solutionPart2(inputData: Sequence<String>): Int {
-        val polymers = inputData.first()
+        val reactedPolymers = reactPolymers(inputData.first().toMutableList())
 
         return ('a'..'z').asSequence()
-            .map { c -> polymers.filterNot { it.equals(c, true) } }
+            .map { c -> reactedPolymers.filterNot { it.equals(c, true) } }
             .map { reactPolymers(it.toMutableList()).size }
             .min()!!
     }
