@@ -4,6 +4,22 @@ import com.tuvior.adventofcode.day.Day
 
 class Day03 : Day<Int>(3) {
 
+    override fun part1(): Int {
+        return inputLines
+            .map(Claim.Companion::parse)
+            .flatMap { claim ->
+                claim.xRange.asSequence()
+                    .flatMap { x -> claim.yRange.asSequence().map { y -> x to y } }
+            }.groupBy { it }
+            .count { it.value.size > 1 }
+    }
+
+    override fun part2(): Int {
+        val claims = inputLines.map(Claim.Companion::parse)
+
+        return claims.first { claim -> claims.none { claim.id != it.id && claim overlaps it } }.id
+    }
+
     class Claim(val id: Int, val x: Int, val y: Int, val width: Int, val height: Int) {
         val xRange = x until x + width
         val yRange = y until y + height
@@ -34,21 +50,5 @@ class Day03 : Day<Int>(3) {
                 )
             }
         }
-    }
-
-    override fun part1(): Int {
-        return inputLines
-            .map(Claim.Companion::parse)
-            .flatMap { claim ->
-                claim.xRange.asSequence()
-                    .flatMap { x -> claim.yRange.asSequence().map { y -> x to y } }
-            }.groupBy { it }
-            .count { it.value.size > 1 }
-    }
-
-    override fun part2(): Int {
-        val claims = inputLines.map(Claim.Companion::parse)
-
-        return claims.first { claim -> claims.none { claim.id != it.id && claim overlaps it } }.id
     }
 }
