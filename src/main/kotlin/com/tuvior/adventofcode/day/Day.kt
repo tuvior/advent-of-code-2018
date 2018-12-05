@@ -13,8 +13,8 @@ abstract class Day<IN, R>(val n: Int, val title: String) : Runnable {
     override fun run() {
         println("Solution of Day $n [$title]:")
         val result = getResult()
-        println("Part 1: ${result.first} - Part 2: ${result.second}")
-        println("Runtime 1: ${result.runtimeFirst / 1_000_000_000f}s - Runtime 2: ${result.runtimeSecond / 1_000_000_000f}s")
+        println(" Part 1: ${result.first} {t = ${"%.4f".format(result.runtimeFirst / 1_000_000f)} ms}")
+        println(" Part 2: ${result.second} {t = ${"%.4f".format(result.runtimeSecond / 1_000_000f)} ms}")
         println()
     }
 
@@ -30,4 +30,4 @@ abstract class Day<IN, R>(val n: Int, val title: String) : Runnable {
     protected abstract fun solutionPart2(inputData: Sequence<IN>): R
 }
 
-data class Result<T>(val first: T, val runtimeFirst: Long, val second: T, val runtimeSecond: Long)
+class Result<T>(val first: T, val runtimeFirst: Long, val second: T, val runtimeSecond: Long)
