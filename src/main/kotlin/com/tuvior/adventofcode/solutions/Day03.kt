@@ -7,10 +7,14 @@ class Day03 : Day<Day03.Claim, Int>(3, "No Matter How You Slice It") {
     override val inputTransform: (String) -> Claim = Claim.Companion::parse
 
     override fun solutionPart1(inputData: Sequence<Claim>): Int {
+        // The whole piece of fabric they're working on is a very large square -
+        // at least 1000 inches on each side.
+        val guessedWidth = 2000
+
         return inputData
             .flatMap { claim ->
                 claim.xRange.asSequence()
-                    .flatMap { x -> claim.yRange.asSequence().map { y -> x to y } }
+                    .flatMap { x -> claim.yRange.asSequence().map { y -> x + y * guessedWidth } }
             }.groupBy { it }
             .count { it.value.size > 1 }
     }
