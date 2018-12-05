@@ -23,9 +23,9 @@ class Day02 : Day<String, Any>(2, "Inventory Management System") {
 
     override fun solutionPart2(inputData: Sequence<String>): Any {
         return inputData
-            .mapIndexed { i, line -> inputData.drop(i + 1).map { line to it } }
+            .mapIndexed { i, line -> inputData.drop(i + 1).map { line.zip(it) } }
             .flatten()
-            .first { (a, b) -> a.zip(b).count { it.first != it.second } == 1 }
-            .let { (a, b) -> a.zip(b).filter { it.first == it.second }.joinToString("") { it.first.toString() } }
+            .first { zipped -> zipped.count { it.first != it.second } == 1 }
+            .let { zipped -> zipped.filter { it.first == it.second }.joinToString("") { it.first.toString() } }
     }
 }
