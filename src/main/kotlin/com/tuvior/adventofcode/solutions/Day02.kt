@@ -3,6 +3,7 @@ package com.tuvior.adventofcode.solutions
 import com.tuvior.adventofcode.day.Day
 
 class Day02 : Day<Any>(2) {
+
     override fun part1(): Int {
         return inputLines
             .map { line -> line.groupBy { it }.map { it.value.size } }
