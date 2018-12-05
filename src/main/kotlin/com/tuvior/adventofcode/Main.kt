@@ -7,7 +7,7 @@ val days = (1..25)
     .map { "com.tuvior.adventofcode.solutions.Day$it" }
     .mapIndexedNotNull { index, className ->
         try {
-            (index + 1) to Class.forName(className).newInstance() as Day<*>
+            (index + 1) to Class.forName(className).newInstance() as Day<*, *>
         } catch (cnf: ClassNotFoundException) {
             null
         }
@@ -22,6 +22,6 @@ fun main(args: Array<String>) {
             error("No solution for Day $day was found.")
         }
     } else {
-        days.values.forEach(Day<*>::run)
+        days.values.forEach(Day<*, *>::run)
     }
 }

@@ -2,11 +2,12 @@ package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
 
-class Day03 : Day<Int>(3) {
+class Day03 : Day<Day03.Claim, Int>(3) {
 
-    override fun part1(): Int {
-        return inputLines
-            .map(Claim.Companion::parse)
+    override val inputTransform: (String) -> Claim = Claim.Companion::parse
+
+    override fun solutionPart1(inputData: Sequence<Claim>): Int {
+        return inputData
             .flatMap { claim ->
                 claim.xRange.asSequence()
                     .flatMap { x -> claim.yRange.asSequence().map { y -> x to y } }
@@ -14,13 +15,11 @@ class Day03 : Day<Int>(3) {
             .count { it.value.size > 1 }
     }
 
-    override fun part2(): Int {
-        val claims = inputLines.map(Claim.Companion::parse)
-
-        return claims.first { claim -> claims.none { claim.id != it.id && claim overlaps it } }.id
+    override fun solutionPart2(inputData: Sequence<Claim>): Int {
+        return inputData.first { claim -> inputData.none { claim.id != it.id && claim overlaps it } }.id
     }
 
-    class Claim(val id: Int, val x: Int, val y: Int, val width: Int, val height: Int) {
+    class Claim(val id: Int, x: Int, y: Int, width: Int, height: Int) {
         val xRange = x until x + width
         val yRange = y until y + height
 

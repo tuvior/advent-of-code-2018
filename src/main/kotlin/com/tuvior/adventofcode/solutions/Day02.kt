@@ -2,10 +2,12 @@ package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
 
-class Day02 : Day<Any>(2) {
+class Day02 : Day<String, Any>(2) {
 
-    override fun part1(): Int {
-        return inputLines
+    override val inputTransform: (String) -> String = { it }
+
+    override fun solutionPart1(inputData: Sequence<String>): Any {
+        return inputData
             .map { line -> line.groupBy { it }.map { it.value.size } }
             .fold(0 to 0) { acc, occurrences ->
                 val dub = occurrences.any { it == 2 }
@@ -19,9 +21,9 @@ class Day02 : Day<Any>(2) {
             }.let { it.first * it.second }
     }
 
-    override fun part2(): String {
-        return inputLines
-            .mapIndexed { i, line -> inputLines.drop(i + 1).map { line to it } }
+    override fun solutionPart2(inputData: Sequence<String>): Any {
+        return inputData
+            .mapIndexed { i, line -> inputData.drop(i + 1).map { line to it } }
             .flatten()
             .first { (a, b) -> a.zip(b).count { it.first != it.second } == 1 }
             .let { (a, b) -> a.zip(b).filter { it.first == it.second }.joinToString("") { it.first.toString() } }
