@@ -13,17 +13,11 @@ class Day05 : Day<String, Int>(5) {
 
     override fun solutionPart2(inputData: Sequence<String>): Int {
         val polymers = inputData.first()
-        var minReaction = Int.MAX_VALUE
 
-        for (unit in 'a'..'z') {
-            val modifiedPolymer = polymers.filterNot { it.equals(unit, true) }.toMutableList()
-            val reacted = reactPolymers(modifiedPolymer)
-            if (reacted.size < minReaction) {
-                minReaction = reacted.size
-            }
-        }
-
-        return minReaction
+        return ('a'..'z').asSequence()
+            .map { c -> polymers.filterNot { it.equals(c, true) } }
+            .map { reactPolymers(it.toMutableList()).size }
+            .min()!!
     }
 
     private fun reactPolymers(polymer: MutableList<Char>) : List<Char> {
