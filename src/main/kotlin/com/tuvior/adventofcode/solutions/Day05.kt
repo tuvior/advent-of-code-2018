@@ -3,7 +3,8 @@ package com.tuvior.adventofcode.solutions
 import com.tuvior.adventofcode.day.Day
 import kotlin.math.abs
 
-class Day05 : Day<String, Int>(5) {
+class Day05 : Day<String, Int>(5, "Alchemical Reduction") {
+
     override val inputTransform: (String) -> String = { it }
 
     override fun solutionPart1(inputData: Sequence<String>): Int {
@@ -20,10 +21,10 @@ class Day05 : Day<String, Int>(5) {
             .min()!!
     }
 
-    private fun reactPolymers(polymer: MutableList<Char>) : List<Char> {
+    private fun reactPolymers(polymer: MutableList<Char>): List<Char> {
         val iterator = polymer.listIterator()
 
-        var current= iterator.next()
+        var current = iterator.next()
         while (iterator.hasNext()) {
             val next = iterator.next()
 

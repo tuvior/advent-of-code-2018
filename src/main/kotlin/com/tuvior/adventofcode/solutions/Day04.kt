@@ -2,7 +2,7 @@ package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
 
-class Day04 : Day<Day04.LogLine, Int>(4) {
+class Day04 : Day<Day04.LogLine, Int>(4, "Repose Record") {
 
     override val inputTransform: (String) -> LogLine = LogLine.Companion::parse
 

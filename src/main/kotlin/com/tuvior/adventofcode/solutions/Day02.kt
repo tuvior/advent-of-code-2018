@@ -2,7 +2,7 @@ package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
 
-class Day02 : Day<String, Any>(2) {
+class Day02 : Day<String, Any>(2, "Inventory Management System") {
 
     override val inputTransform: (String) -> String = { it }
 

@@ -2,7 +2,7 @@ package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
 
-class Day03 : Day<Day03.Claim, Int>(3) {
+class Day03 : Day<Day03.Claim, Int>(3, "No Matter How You Slice It") {
 
     override val inputTransform: (String) -> Claim = Claim.Companion::parse
 

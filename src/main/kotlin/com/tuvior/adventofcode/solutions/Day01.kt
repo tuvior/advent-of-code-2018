@@ -2,7 +2,7 @@ package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
 
-class Day01 : Day<Int, Int>(1) {
+class Day01 : Day<Int, Int>(1, "Chronal Calibration") {
 
     override val inputTransform: (String) -> Int = Integer::parseInt
 

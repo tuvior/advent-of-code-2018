@@ -2,7 +2,7 @@ package com.tuvior.adventofcode.day
 
 import com.tuvior.adventofcode.util.measureComputation
 
-abstract class Day<IN, R>(val n: Int) : Runnable {
+abstract class Day<IN, R>(val n: Int, val title: String) : Runnable {
     private val inputLines: List<String> by lazy {
         val inputFilePath = "/day${"%02d".format(n)}.txt"
         javaClass.getResource(inputFilePath).readText().lines().dropLastWhile { it.isEmpty() }
@@ -11,7 +11,7 @@ abstract class Day<IN, R>(val n: Int) : Runnable {
     protected abstract val inputTransform: (String) -> IN
 
     override fun run() {
-        println("Solution of Day $n:")
+        println("Solution of Day $n [$title]:")
         val result = getResult()
         println("Part 1: ${result.first} - Part 2: ${result.second}")
         println("Runtime 1: ${result.runtimeFirst / 1_000_000_000f}s - Runtime 2: ${result.runtimeSecond / 1_000_000_000f}s")
