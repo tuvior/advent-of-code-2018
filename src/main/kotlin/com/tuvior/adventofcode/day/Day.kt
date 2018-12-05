@@ -18,15 +18,15 @@ abstract class Day<T>(val n: Int) : Runnable {
         println()
     }
 
-    protected open fun getResult(): Result<T> {
+    private fun getResult(): Result<T> {
         val (part1, timing1) = measureComputation(::part1)
         val (part2, timing2) = measureComputation(::part2)
 
         return Result(part1, timing1, part2, timing2)
     }
 
-    protected open fun part1(): T = throw UnsupportedOperationException()
-    protected open fun part2(): T = throw UnsupportedOperationException()
+    protected abstract fun part1(): T
+    protected abstract fun part2(): T
 }
 
 data class Result<T>(val first: T, val runtimeFirst: Long, val second: T, val runtimeSecond: Long)
