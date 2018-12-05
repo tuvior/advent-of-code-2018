@@ -49,6 +49,6 @@ class Day03 : Day<Int>(3) {
     override fun part2(): Int {
         val claims = inputLines.map(Claim.Companion::parse)
 
-        return claims.first { claim -> claims.map { claim overlaps it }.count { it } == 1 }.id
+        return claims.first { claim -> claims.none { claim.id != it.id && claim overlaps it } }.id
     }
 }
