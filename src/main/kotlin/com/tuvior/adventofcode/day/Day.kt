@@ -5,7 +5,9 @@ import com.tuvior.adventofcode.util.measureComputation
 abstract class Day<IN, R>(val n: Int, val title: String) : Runnable {
     private val inputLines: List<String> by lazy {
         val inputFilePath = "/day${"%02d".format(n)}.txt"
-        javaClass.getResource(inputFilePath).readText().lines().dropLastWhile { it.isEmpty() }
+        javaClass.getResource(inputFilePath)
+            ?.readText()?.lines()?.dropLastWhile { it.isEmpty() }
+            ?: throw IllegalStateException("Input file for Day $n doesn't exist. ($inputFilePath)")
     }
 
     protected abstract val inputTransform: (String) -> IN
