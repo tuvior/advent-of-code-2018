@@ -9,12 +9,13 @@ abstract class Day<T>(val n: Int) : Runnable {
     }
 
     override fun run() {
-        println("Solution of Day $n")
+        println("Solution of Day $n:")
         val before = System.nanoTime()
         val result = getResult()
         val after = System.nanoTime()
         println("Part 1: ${result.first} - Part 2: ${result.second}")
         println("Runtime: ${(after - before) / 1_000_000_000f}s")
+        println()
     }
 
     protected open fun getResult(): Result<T> = Result(part1(), part2())
