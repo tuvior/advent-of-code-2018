@@ -2,11 +2,13 @@ package com.tuvior.adventofcode
 
 import com.tuvior.adventofcode.day.Day
 import com.tuvior.adventofcode.day.Result
-import com.tuvior.adventofcode.solutions.*
+import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.function.Executable
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.jvm.isAccessible
 import kotlin.test.assertEquals
 import org.junit.Test as test
+import org.junit.jupiter.api.TestFactory as testFactory
 
 class TestDays {
     private val getResult = Day::class.declaredFunctions
@@ -21,48 +23,29 @@ class TestDays {
         return first to second
     }
 
-    @test fun day1_IsResultCorrect() {
-        val (solution1, solution2) = resultsForDay(1)
+    @testFactory fun days_AreResultsCorrect(): Collection<DynamicTest> {
+        val days = (1..25)
+            .map { "%02d".format(it) }
+            .map { "com.tuvior.adventofcode.solutions.Day$it" }
+            .mapIndexedNotNull { index, className ->
+                try {
+                    (index + 1) to Class.forName(className).newInstance() as Day<*, *>
+                } catch (cnf: ClassNotFoundException) {
+                    null
+                }
+            }.toMap()
 
-        val res = getResult.call(Day01()) as Result<*>
+        return days.map { (n, day) ->
+            val exec = Executable {
+                val (solution1, solution2) = resultsForDay(n)
 
-        assertEquals(res.first.toString(), solution1, "Wrong solution for Part 1")
-        assertEquals(res.second.toString(), solution2, "Wrong solution for Part 2")
-    }
+                val res = getResult.call(day) as Result<*>
 
-    @test fun day2_IsResultCorrect() {
-        val (solution1, solution2) = resultsForDay(2)
-
-        val res = getResult.call(Day02()) as Result<*>
-
-        assertEquals(res.first.toString(), solution1, "Wrong solution for Part 1")
-        assertEquals(res.second.toString(), solution2, "Wrong solution for Part 2")
-    }
-
-    @test fun day3_IsResultCorrect() {
-        val (solution1, solution2) = resultsForDay(3)
-
-        val res = getResult.call(Day03()) as Result<*>
-
-        assertEquals(res.first.toString(), solution1, "Wrong solution for Part 1")
-        assertEquals(res.second.toString(), solution2, "Wrong solution for Part 2")
-    }
-
-    @test fun day4_IsResultCorrect() {
-        val (solution1, solution2) = resultsForDay(4)
-
-        val res = getResult.call(Day04()) as Result<*>
-
-        assertEquals(res.first.toString(), solution1, "Wrong solution for Part 1")
-        assertEquals(res.second.toString(), solution2, "Wrong solution for Part 2")
-    }
-
-    @test fun day5_IsResultCorrect() {
-        val (solution1, solution2) = resultsForDay(5)
-
-        val res = getResult.call(Day05()) as Result<*>
-
-        assertEquals(res.first.toString(), solution1, "Wrong solution for Part 1")
-        assertEquals(res.second.toString(), solution2, "Wrong solution for Part 2")
+                assertEquals(res.first.toString(), solution1, "Wrong solution for Part 1")
+                assertEquals(res.second.toString(), solution2, "Wrong solution for Part 2")
+            }
+            val testName = "day${"%02d".format(n)}_isResultCorrect"
+            DynamicTest.dynamicTest(testName, exec)
+        }
     }
 }
