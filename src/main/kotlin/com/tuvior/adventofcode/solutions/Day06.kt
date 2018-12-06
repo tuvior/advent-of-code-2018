@@ -5,8 +5,7 @@ import kotlin.math.abs
 
 class Day06 : Day<Point, Int>(6, "Chronal Coordinates") {
 
-    override val inputTransform: (String) -> Point =
-        { line -> line.split(", ").take(2).map { it.toInt() }.let { Point(it[0], it[1]) } }
+    override val inputTransform: (String) -> Point = Point.Companion::parse
 
     override fun solutionPart1(inputData: Sequence<Point>): Int {
         val maxX = inputData.maxBy { it.x }!!.x
@@ -43,5 +42,12 @@ class Day06 : Day<Point, Int>(6, "Chronal Coordinates") {
 class Point(val x: Int, val y: Int) {
     fun manhattanDistance(p: Point): Int {
         return abs(x - p.x) + abs(y - p.y)
+    }
+
+    companion object {
+        fun parse(coordinate: String): Point {
+            val (x, y) = coordinate.split(", ").take(2).map { it.toInt() }
+            return Point(x, y)
+        }
     }
 }
