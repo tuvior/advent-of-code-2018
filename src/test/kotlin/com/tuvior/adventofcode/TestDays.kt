@@ -7,7 +7,6 @@ import org.junit.jupiter.api.function.Executable
 import kotlin.reflect.full.declaredFunctions
 import kotlin.reflect.jvm.isAccessible
 import kotlin.test.assertEquals
-import org.junit.Test as test
 import org.junit.jupiter.api.TestFactory as testFactory
 
 class TestDays {
