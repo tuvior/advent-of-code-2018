@@ -18,11 +18,8 @@ class Day04 : Day<LogLine, Int>(4, "Repose Record") {
         val sortedLogs = inputData.sorted()
         val guardsTable = makeGuardSleepingTable(sortedLogs)
 
-        return guardsTable.maxBy { (_, table) ->
-            table.max()!!
-        }?.let { (guard, table) ->
-            guard * table.indexOf(table.max()!!)
-        } ?: -1
+        return guardsTable.maxBy { (_, table) -> table.max()!! }!!
+            .let { (guard, table) -> guard * table.indexOf(table.max()!!) }
     }
 
     private fun makeGuardSleepingTable(logs: Sequence<LogLine>): Map<Int, IntArray> {
