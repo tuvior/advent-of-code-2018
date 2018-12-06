@@ -21,7 +21,7 @@ class Day06 : Day<Point, Int>(6, "Chronal Coordinates") {
             distances.filter { it.second == min }.let { if (it.count() == 1) (it.first().first to p) else null }
         }.groupBy { it.first }.mapValues { it.value.map { it.second } }
             .filterNot { (_, closest) ->
-                closest.any { it.x == minX || it.y == maxY || it.x == minY || it.y == maxY }
+                closest.any { it.x == minX || it.x == maxX || it.y == minY || it.y == maxY }
             }.map { it.value.count() }
             .max()!!
     }
