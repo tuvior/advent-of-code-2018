@@ -63,10 +63,10 @@ class Day07 : Day<Dependency, Any>(7, "The Sum of Its Parts") {
                 }
             }
 
-            t = workers.filterNotNull().map { it.second }.min() ?: t + 1
+            t = workers.filterNotNull().map { it.second }.min()!!
         }
 
-        return t
+        return workers.filterNotNull().map { it.second }.max() ?: t
     }
 }
 
