@@ -9,16 +9,16 @@ class Day02 : Day<String, Any>(2, "Inventory Management System") {
     override fun solutionPart1(inputData: Sequence<String>): Int {
         return inputData
             .map { line -> line.groupBy { it }.map { it.value.size } }
-            .fold(0 to 0) { acc, occurrences ->
+            .fold(0 to 0) { (dubs, trips), occurrences ->
                 val dub = occurrences.any { it == 2 }
                 val trip = occurrences.any { it == 3 }
                 when {
-                    trip && dub -> acc.first + 1 to acc.second + 1
-                    trip -> acc.first to acc.second + 1
-                    dub -> acc.first + 1 to acc.second
-                    else -> acc
+                    trip && dub -> dubs + 1 to trips + 1
+                    trip -> dubs to trips + 1
+                    dub -> dubs + 1 to trips
+                    else -> dubs to trips
                 }
-            }.let { it.first * it.second }
+            }.let { (dubs, trips) ->  dubs * trips }
     }
 
     override fun solutionPart2(inputData: Sequence<String>): String {
