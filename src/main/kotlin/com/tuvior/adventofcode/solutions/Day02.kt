@@ -6,7 +6,7 @@ class Day02 : Day<String, Any>(2, "Inventory Management System") {
 
     override val inputTransform: (String) -> String = { it }
 
-    override fun solutionPart1(inputData: Sequence<String>): Any {
+    override fun solutionPart1(inputData: Sequence<String>): Int {
         return inputData
             .map { line -> line.groupBy { it }.map { it.value.size } }
             .fold(0 to 0) { acc, occurrences ->
@@ -21,7 +21,7 @@ class Day02 : Day<String, Any>(2, "Inventory Management System") {
             }.let { it.first * it.second }
     }
 
-    override fun solutionPart2(inputData: Sequence<String>): Any {
+    override fun solutionPart2(inputData: Sequence<String>): String {
         return inputData
             .mapIndexed { i, line -> inputData.drop(i + 1).map { line.zip(it) } }
             .flatten()
