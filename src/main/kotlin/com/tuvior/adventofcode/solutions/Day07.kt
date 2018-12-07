@@ -8,7 +8,7 @@ class Day07 : Day<Dependency, Any>(7, "The Sum of Its Parts") {
     override val inputTransform: (String) -> Dependency = Dependency.Companion::parse
 
     override fun solutionPart1(inputData: Sequence<Dependency>): String {
-        val stepNames = ('A'..'Z').toList()
+        val stepNames = (inputData.map { it.self } + inputData.map { it.dependsOn }).sorted().distinct()
 
         val nodeDeps = stepNames.associateWith { s ->
             inputData.filter { it.self == s }.map { it.dependsOn }.toMutableList()
@@ -33,7 +33,7 @@ class Day07 : Day<Dependency, Any>(7, "The Sum of Its Parts") {
     }
 
     override fun solutionPart2(inputData: Sequence<Dependency>): Int {
-        val stepNames = ('A'..'Z').toList()
+        val stepNames = (inputData.map { it.self } + inputData.map { it.dependsOn }).sorted().distinct()
 
         val nodeDeps = stepNames.associateWith { s ->
             inputData.filter { it.self == s }.map { it.dependsOn }.toMutableList()
