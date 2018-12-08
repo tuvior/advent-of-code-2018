@@ -2,7 +2,7 @@ package com.tuvior.adventofcode.day
 
 import com.tuvior.adventofcode.util.measureComputation
 
-abstract class Day<IN, R>(val n: Int, val title: String) : Runnable {
+abstract class Day<IN, out R>(val n: Int, val title: String) : Runnable {
     private val inputLines: List<String> by lazy {
         val inputFilePath = "/day${"%02d".format(n)}.txt"
         javaClass.getResource(inputFilePath)
