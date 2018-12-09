@@ -1,7 +1,6 @@
 package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
-import java.util.*
 
 class Day09 : Day<Pair<Int, Int>, Long>(9, "Marble Mania") {
 
@@ -22,18 +21,54 @@ class Day09 : Day<Pair<Int, Int>, Long>(9, "Marble Mania") {
 
     private fun getWinnerScore(numPlayers: Int, lastMarble: Int): Long {
         val points = LongArray(numPlayers) { 0 }
-        val circle = LinkedList(listOf(0L))
+        val game = MarbleGame(0)
 
         for (i in 1..lastMarble) {
             if (i % 23 == 0) {
-                repeat(7) { circle.push(circle.removeLast()) }
-                points[i % numPlayers] += i + circle.pop()
+                game.rotateRight(7)
+                points[i % numPlayers] += i + game.remove()
             } else {
-                repeat(2) { circle.addLast(circle.pop()) }
-                circle.push(i.toLong())
+                game.rotateLeft(2)
+                game.insert(i.toLong())
             }
         }
 
         return points.max()!!
+    }
+}
+
+class MarbleGame(root: Long) {
+    private var current = Marble(root)
+
+    fun insert(value: Long) {
+        current = current.insert(value)
+    }
+
+    fun remove(): Long {
+        val value = current.value
+        current = current.remove()
+        return value
+    }
+
+    fun rotateLeft(n: Int) = repeat(n) { current = current.succ }
+
+    fun rotateRight(n: Int) = repeat(n) { current = current.prev }
+}
+
+class Marble(val value: Long, prev: Marble? = null, succ: Marble? = null) {
+    var prev: Marble = prev ?: this
+    var succ: Marble = succ ?: this
+
+    fun insert(value: Long): Marble {
+        val new = Marble(value, prev, this)
+        prev.succ = new
+        prev = new
+        return new
+    }
+
+    fun remove(): Marble {
+        prev.succ = succ
+        succ.prev = prev
+        return succ
     }
 }
