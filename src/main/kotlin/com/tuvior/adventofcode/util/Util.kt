@@ -1,6 +1,6 @@
 package com.tuvior.adventofcode.util
 
-fun <T> measureComputation(block: () -> T): Pair<T, Long> {
+inline fun <T> measureComputation(crossinline block: () -> T): Pair<T, Long> {
     val before = System.nanoTime()
     val result = block()
     val after = System.nanoTime()
