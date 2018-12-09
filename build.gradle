@@ -4,6 +4,7 @@ plugins {
 
 group 'com.tuvior.adventofcode'
 version '2.0.18'
+description 'Solutions to the Advent of Code 2018 puzzles'
 
 repositories {
     mavenCentral()
@@ -34,5 +35,5 @@ test {
 }
 
 wrapper {
-    gradleVersion = '4.10'
+    gradleVersion = '5.0'
 }
