@@ -7,7 +7,7 @@ class Day10 : Day<Light, Any>(10, "The Stars Align") {
     override val inputTransform: (String) -> Light = Light.Companion::parse
 
     override fun solutionPart1(inputData: Sequence<Light>): String {
-        val t = getTimeAtHeightMinima(inputData)
+        val t = getTimeAtBoxMinima(inputData)
 
         val alignedPoints = inputData.map { it.positionAt(t) }
 
@@ -23,15 +23,15 @@ class Day10 : Day<Light, Any>(10, "The Stars Align") {
     }
 
     override fun solutionPart2(inputData: Sequence<Light>): Int {
-        return getTimeAtHeightMinima(inputData)
+        return getTimeAtBoxMinima(inputData)
     }
 
-    private fun getTimeAtHeightMinima(lights: Sequence<Light>): Int {
+    private fun getTimeAtBoxMinima(lights: Sequence<Light>): Int {
         return generateSequence(0, Int::inc)
-            .map { t -> lights.map { it.positionAt(t).second } }
-            .map { it.max()!! - it.min()!! }
+            .map { t -> lights.map { it.positionAt(t) }.unzip() }
+            .map { (xs, ys) -> (xs.max()!! - xs.min()!!) to (ys.max()!! - ys.min()!!) }
             .zipWithNext()
-            .indexOfFirst { (h1, h2) -> h2 > h1 }
+            .indexOfFirst { (box1, box2) -> box2.first > box1.first || box2.second > box2.second }
     }
 
 }
