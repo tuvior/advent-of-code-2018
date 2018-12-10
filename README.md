@@ -16,16 +16,16 @@ The general goals of each solution are as follows:
 
 |  # | Puzzle                      | Stars |
 |---:|-------------------------------|-------|
-|  1 | Chronal Calibration         | ⭐ ⭐ |
-|  2 | Inventory Management System | ⭐ ⭐ |
-|  3 | No Matter How You Slice It  | ⭐ ⭐ |
-|  4 | Repose Record               | ⭐ ⭐ |
-|  5 | Alchemical Reduction        | ⭐ ⭐ |
-|  6 | Chronal Coordinates         | ⭐ ⭐ |
-|  7 | The Sum of Its Parts        | ⭐ ⭐ |
-|  8 | Memory Maneuver             | ⭐ ⭐ |
-|  9 | Marble Mania                | ⭐ ⭐ |
-| 10 | The Stars Align             | ⭐ ⭐ |
+|  1 | [Chronal Calibration](https://adventofcode.com/2018/day/1)         | ⭐ ⭐ |
+|  2 | [Inventory Management System](https://adventofcode.com/2018/day/2) | ⭐ ⭐ |
+|  3 | [No Matter How You Slice It](https://adventofcode.com/2018/day/3)  | ⭐ ⭐ |
+|  4 | [Repose Record](https://adventofcode.com/2018/day/4)              | ⭐ ⭐ |
+|  5 | [Alchemical Reduction](https://adventofcode.com/2018/day/5)        | ⭐ ⭐ |
+|  6 | [Chronal Coordinates](https://adventofcode.com/2018/day/6)         | ⭐ ⭐ |
+|  7 | [The Sum of Its Parts](https://adventofcode.com/2018/day/7)       | ⭐ ⭐ |
+|  8 | [Memory Maneuver](https://adventofcode.com/2018/day/8)             | ⭐ ⭐ |
+|  9 | [Marble Mania](https://adventofcode.com/2018/day/9)                | ⭐ ⭐ |
+| 10 | [The Stars Align](https://adventofcode.com/2018/day/10)             | ⭐ ⭐ |
 | 11 | ????                        | ⚫ ⚫ |
 | 12 | ????                        | ⚫ ⚫ |
 | 13 | ????                        | ⚫ ⚫ |
