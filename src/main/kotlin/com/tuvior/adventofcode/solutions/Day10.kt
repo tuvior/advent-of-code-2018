@@ -1,7 +1,6 @@
 package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
-import kotlin.math.abs
 
 class Day10 : Day<Light, Any>(10, "The Stars Align") {
 
@@ -30,7 +29,7 @@ class Day10 : Day<Light, Any>(10, "The Stars Align") {
     private fun getTimeAtHeightMinima(lights: Sequence<Light>): Int {
         return generateSequence(0, Int::inc)
             .map { t -> lights.map { it.positionAt(t).second } }
-            .map { abs(it.min()!! - it.max()!!) }
+            .map { it.max()!! - it.min()!! }
             .zipWithNext()
             .indexOfFirst { (h1, h2) -> h2 > h1 }
     }
