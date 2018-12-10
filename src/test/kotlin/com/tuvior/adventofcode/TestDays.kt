@@ -16,10 +16,24 @@ class TestDays {
 
     private fun resultsForDay(n: Int): Pair<String, String> {
         val inputFilePath = "/day${"%02d".format(n)}_result.txt"
-        val (first, second) = javaClass.getResource(inputFilePath)
+        val inputFilePath1 = "/day${"%02d".format(n)}_1_result.txt"
+        val inputFilePath2 = "/day${"%02d".format(n)}_2_result.txt"
+        val solution = javaClass.getResource(inputFilePath)
             ?.readText()?.lines()?.dropLastWhile { it.isEmpty() }?.take(2)
-            ?: throw IllegalStateException("Input solution for Day $n doesn't exist. ($inputFilePath)")
-        return first to second
+
+        if (solution == null) {
+            val (part1, part2) = javaClass.getResource(inputFilePath1)?.readText() to
+                    javaClass.getResource(inputFilePath2)?.readText()
+
+            if (part1 == null || part2 == null)  {
+                throw IllegalStateException("Input solution for Day $n doesn't exist. ($inputFilePath)")
+            }
+            return part1 to part2
+        }
+
+        val (part1, part2) = solution
+
+        return part1 to part2
     }
 
     @testFactory fun days_AreResultsCorrect(): Collection<DynamicTest> {
@@ -40,8 +54,8 @@ class TestDays {
 
                 val res = getResult.call(day) as Result<*>
 
-                assertEquals(res.first.toString(), solution1, "Wrong solution for Part 1")
-                assertEquals(res.second.toString(), solution2, "Wrong solution for Part 2")
+                assertEquals(solution1, res.first.toString(), "Wrong solution for Part 1")
+                assertEquals(solution2, res.second.toString(), "Wrong solution for Part 2")
             }
             val testName = "day${"%02d".format(n)}_isResultCorrect"
             DynamicTest.dynamicTest(testName, exec)
