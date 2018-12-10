@@ -1,5 +1,5 @@
 # Advent Of Code 2018 🎅 
-[![Build Status](https://travis-ci.org/tuvior/AdventOfCode2018.svg?branch=master)](https://travis-ci.org/tuvior/AdventOfCode2018) [![AoC](https://img.shields.io/badge/AoC-2018-%230F0F23.svg)](https://adventofcode.com/) [![Kotlin](https://img.shields.io/badge/kotlin-1.3.11-%230095D5.svg?logo=kotlin)](https://kotlinlang.org/)
+[![Build Status](https://travis-ci.org/tuvior/advent-of-code-2018.svg?branch=master)](https://travis-ci.org/tuvior/AdventOfCode2018) [![AoC](https://img.shields.io/badge/AoC-2018-%230F0F23.svg)](https://adventofcode.com/) [![Kotlin](https://img.shields.io/badge/kotlin-1.3.11-%230095D5.svg?logo=kotlin)](https://kotlinlang.org/)
 ### Goal
 
 The solutions are cleaned up version of what originally achieved the correct result. 
@@ -25,7 +25,7 @@ The general goals of each solution are as follows:
 |  7 | The Sum of Its Parts        | ⭐ ⭐ |
 |  8 | Memory Maneuver             | ⭐ ⭐ |
 |  9 | Marble Mania                | ⭐ ⭐ |
-| 10 | ????                        | ⚫ ⚫ |
+| 10 | The Stars Align             | ⭐ ⭐ |
 | 11 | ????                        | ⚫ ⚫ |
 | 12 | ????                        | ⚫ ⚫ |
 | 13 | ????                        | ⚫ ⚫ |
