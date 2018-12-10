@@ -8,10 +8,7 @@ class Day10 : Day<Light, Any>(10, "The Stars Align") {
     override val inputTransform: (String) -> Light = Light.Companion::parse
 
     override fun solutionPart1(inputData: Sequence<Light>): String {
-        val t = (1..20000)
-            .map { t -> t to inputData.map { it.positionAt(t) }.map { it.second } }
-            .map { (t, ys) -> Triple(t, ys.min()!!, ys.max()!!) }
-            .minBy { abs(it.second - it.third) }!!.first
+        val t = getTimeAtHeightMinima(inputData)
 
         val alignedPoints = inputData.map { it.positionAt(t) }
 
@@ -27,17 +24,22 @@ class Day10 : Day<Light, Any>(10, "The Stars Align") {
     }
 
     override fun solutionPart2(inputData: Sequence<Light>): Int {
-        return (1..20000)
-            .map { t -> t to inputData.map { it.positionAt(t) }.map { it.second } }
-            .map { (t, ys) -> Triple(t, ys.min()!!, ys.max()!!) }
-            .minBy { abs(it.second - it.third) }!!.first
+        return getTimeAtHeightMinima(inputData)
+    }
+
+    private fun getTimeAtHeightMinima(lights: Sequence<Light>): Int {
+        return generateSequence(0, Int::inc)
+            .map { t -> lights.map { it.positionAt(t).second } }
+            .map { abs(it.min()!! - it.max()!!) }
+            .zipWithNext()
+            .indexOfFirst { (h1, h2) -> h2 > h1 }
     }
 
 }
 
 typealias Vector = Pair<Int, Int>
 
-class Light(val position: Vector, val velocity: Vector) {
+class Light(private val position: Vector, private val velocity: Vector) {
 
     fun positionAt(t: Int): Vector {
         return position.first + velocity.first * t to position.second + velocity.second * t
