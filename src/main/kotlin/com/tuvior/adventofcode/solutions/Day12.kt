@@ -21,7 +21,7 @@ class Day12 : Day<String, Number>(12, "Subterranean Sustainability") {
             .mapIndexed { i, state ->
                 val min = state.min()!!
                 val max = state.max()!!
-                (i to state.sum()) to (min..max).map { if (it in state) '#' else '.' }.joinToString("")
+                (i to state.sum()) to (min..max).joinToString("") { if (it in state) "#" else "." }
             }.zipWithNext()
             .first { (s1, s2) -> s1.second == s2.second }
 
@@ -39,17 +39,18 @@ class Day12 : Day<String, Number>(12, "Subterranean Sustainability") {
             .toSet()
     }
 
-    private fun parseGeneratingStates(rules: Sequence<String>): Set<String> {
+    private fun parseGeneratingStates(rules: Sequence<String>): Set<Int> {
         return rules.map { line -> line.split(" => ").let { it[0] to it[1] } }
             .filter { it.second == "#" }
             .map { it.first }
+            .map { it.fold(0) { s, p -> (s shl 1) + if (p == '#') 1 else 0 } }
             .toSet()
     }
 
-    private fun getNextGenerationState(state: Set<Int>, genStates: Set<String>): Set<Int> {
+    private fun getNextGenerationState(state: Set<Int>, genStates: Set<Int>): Set<Int> {
         val min = state.min()!! - 2
         val max = state.max()!! + 2
-        return (min..max).map { x -> x to ((x - 2)..(x + 2)).map { if (it in state) '#' else '.' }.joinToString("") }
+        return (min..max).map { x -> x to ((x - 2)..(x + 2)).fold(0) { s, p -> (s shl 1) + if (p in state) 1 else 0 } }
             .filter { (_, s) -> s in genStates }
             .map { (x, _) -> x }
             .toSet()
