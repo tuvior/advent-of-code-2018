@@ -49,14 +49,9 @@ class Day12 : Day<String, Number>(12, "Subterranean Sustainability") {
     private fun getNextGenerationState(state: Set<Int>, genStates: Set<String>): Set<Int> {
         val min = state.min()!! - 2
         val max = state.max()!! + 2
-        val newState = mutableSetOf<Int>()
-
-        for (x in min..max) {
-            val key = ((x - 2)..(x + 2)).map { if (it in state) '#' else '.' }.joinToString("")
-            if (key in genStates) {
-                newState += x
-            }
-        }
-        return newState
+        return (min..max).map { x -> x to ((x - 2)..(x + 2)).map { if (it in state) '#' else '.' }.joinToString("") }
+            .filter { (_, s) -> s in genStates }
+            .map { (x, _) -> x }
+            .toSet()
     }
 }
