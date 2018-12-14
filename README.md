@@ -29,7 +29,7 @@ The general goals of each solution are as follows:
 | 11 | [Chronal Charge](https://adventofcode.com/2018/day/11)             | ⭐ ⭐ |
 | 12 | [Subterranean Sustainability](https://adventofcode.com/2018/day/12)| ⭐ ⭐ |
 | 13 | [Mine Cart Madness](https://adventofcode.com/2018/day/13)          | ⭐ ⭐ |
-| 14 | ????                        | ⚫ ⚫ |
+| 14 | [Chocolate Charts](https://adventofcode.com/2018/day/14)           | ⭐ ⭐ |
 | 15 | ????                        | ⚫ ⚫ |
 | 16 | ????                        | ⚫ ⚫ |
 | 17 | ????                        | ⚫ ⚫ |
