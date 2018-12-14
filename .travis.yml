@@ -1,6 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
+env:
+  global:
+    - GRADLE_OPTS="-Xms512m -Xmx512m"
 before_install:
   - chmod +x gradlew
 script:
