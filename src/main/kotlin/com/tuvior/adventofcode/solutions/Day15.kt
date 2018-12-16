@@ -65,7 +65,7 @@ class Day15 : Day<String, Int>(15, "Beverage Bandits") {
 }
 
 
-sealed class Unit(var pos: Vector, var hp: Int = 200, var power: Int, val type: Char) {
+private sealed class Unit(var pos: Vector, var hp: Int = 200, var power: Int, val type: Char) {
     var alive = true
     val neighbors get() = pos.neighbors
 
@@ -144,8 +144,8 @@ sealed class Unit(var pos: Vector, var hp: Int = 200, var power: Int, val type: 
     }
 }
 
-class Elf(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, hp, power, 'E')
-class Goblin(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, hp, power, 'G')
+private class Elf(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, hp, power, 'E')
+private class Goblin(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, hp, power, 'G')
 
 sealed class TurnResult
 object EndTurn : TurnResult()
