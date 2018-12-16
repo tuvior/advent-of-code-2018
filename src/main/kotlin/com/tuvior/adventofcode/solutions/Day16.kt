@@ -23,12 +23,12 @@ class Day16 : Day<String, Int>(16, "Chronal Classification") {
             .map { line -> line.split(" ").map { it.toInt() }.let { Instruction(it[0], it[1], it[2], it[3]) } }
 
         val opCodes = examples.flatMap { (reg, instruction, regAfter) ->
-            ops.filter { it.execute(reg, instruction).contentEquals(regAfter) }.map { instruction.opcode to it}
+            ops.filter { it.execute(reg, instruction).contentEquals(regAfter) }.map { instruction.opcode to it }
         }.groupBy { it.first }.mapValues { it.value.map { it.second }.distinct().toMutableList() }
 
         val assigned = mutableSetOf<Int>()
 
-        while(opCodes.values.any { it.size > 1 }) {
+        while (opCodes.values.any { it.size > 1 }) {
             val next = opCodes.filterKeys { it !in assigned }.entries.first { it.value.size == 1 }
             assigned += next.key
 
@@ -41,8 +41,8 @@ class Day16 : Day<String, Int>(16, "Chronal Classification") {
     }
 }
 
-private fun parseExamples(examples: String):List<Triple<Register, Instruction, Register>> {
-    return examples.split("\n\n").map {example ->
+private fun parseExamples(examples: String): List<Triple<Register, Instruction, Register>> {
+    return examples.split("\n\n").map { example ->
         val (before, ins, after) = example.split("\n")
 
         val reg = before.removeSurrounding("Before: [", "]").split(", ").map { it.toInt() }.toIntArray()
@@ -52,38 +52,38 @@ private fun parseExamples(examples: String):List<Triple<Register, Instruction, R
     }
 }
 
-sealed class Op(val op: (Register, Int, Int, Int) -> Unit) {
+sealed class Op(val op: (Register, Int, Int) -> Int) {
     fun execute(register: Register, instruction: Instruction): Register {
         val result = register.copyOf()
-        op(result, instruction.a, instruction.b, instruction.c)
+        result[instruction.c] = op(result, instruction.a, instruction.b)
         return result
     }
 
     override fun toString(): String = javaClass.simpleName
 }
 
-object addr : Op({ r, a, b, c -> r[c] = r[a] + r[b] })
-object addi : Op({ r, a, b, c -> r[c] = r[a] + b })
+object addr : Op({ r, a, b -> r[a] + r[b] })
+object addi : Op({ r, a, b -> r[a] + b })
 
-object mulr : Op({ r, a, b, c -> r[c] = r[a] * r[b] })
-object muli : Op({ r, a, b, c -> r[c] = r[a] * b })
+object mulr : Op({ r, a, b -> r[a] * r[b] })
+object muli : Op({ r, a, b -> r[a] * b })
 
-object banr : Op({ r, a, b, c -> r[c] = r[a] and r[b] })
-object bani : Op({ r, a, b, c -> r[c] = r[a] and b })
+object banr : Op({ r, a, b -> r[a] and r[b] })
+object bani : Op({ r, a, b -> r[a] and b })
 
-object borr : Op({ r, a, b, c -> r[c] = r[a] or r[b] })
-object bori : Op({ r, a, b, c -> r[c] = r[a] or b })
+object borr : Op({ r, a, b -> r[a] or r[b] })
+object bori : Op({ r, a, b -> r[a] or b })
 
-object setr : Op({ r, a, _, c -> r[c] = r[a] })
-object seti : Op({ r, a, _, c -> r[c] = a })
+object setr : Op({ r, a, _ -> r[a] })
+object seti : Op({ _, a, _ -> a })
 
-object gtir : Op({ r, a, b, c -> r[c] = if (a > r[b]) 1 else 0 })
-object gtri : Op({ r, a, b, c -> r[c] = if (r[a] > b) 1 else 0 })
-object gtrr : Op({ r, a, b, c -> r[c] = if (r[a] > r[b]) 1 else 0 })
+object gtir : Op({ r, a, b -> if (a > r[b]) 1 else 0 })
+object gtri : Op({ r, a, b -> if (r[a] > b) 1 else 0 })
+object gtrr : Op({ r, a, b -> if (r[a] > r[b]) 1 else 0 })
 
-object eqir : Op({ r, a, b, c -> r[c] = if (a == r[b]) 1 else 0 })
-object eqri : Op({ r, a, b, c -> r[c] = if (r[a] == b) 1 else 0 })
-object eqrr : Op({ r, a, b, c -> r[c] = if (r[a] == r[b]) 1 else 0 })
+object eqir : Op({ r, a, b -> if (a == r[b]) 1 else 0 })
+object eqri : Op({ r, a, b -> if (r[a] == b) 1 else 0 })
+object eqrr : Op({ r, a, b -> if (r[a] == r[b]) 1 else 0 })
 
 val ops = listOf(addr, addi, mulr, muli, banr, bani, borr, bori, setr, seti, gtir, gtri, gtrr, eqir, eqri, eqrr)
 

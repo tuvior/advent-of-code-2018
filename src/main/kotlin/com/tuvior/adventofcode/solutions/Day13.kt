@@ -1,6 +1,7 @@
 package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
+import com.tuvior.adventofcode.util.Vector
 
 class Day13 : Day<String, Vector>(13, "Mine Cart Madness") {
 

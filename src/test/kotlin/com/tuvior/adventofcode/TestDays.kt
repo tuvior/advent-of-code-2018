@@ -15,9 +15,9 @@ class TestDays {
         .also { it.isAccessible = true }
 
     private fun resultsForDay(n: Int): Pair<String, String> {
-        val inputFilePath = "/day${"%02d".format(n)}_result.txt"
-        val inputFilePath1 = "/day${"%02d".format(n)}_1_result.txt"
-        val inputFilePath2 = "/day${"%02d".format(n)}_2_result.txt"
+        val inputFilePath = "/solution/day${"%02d".format(n)}_result.txt"
+        val inputFilePath1 = "/solution/day${"%02d".format(n)}_1_result.txt"
+        val inputFilePath2 = "/solution/day${"%02d".format(n)}_2_result.txt"
         val solution = javaClass.getResource(inputFilePath)
             ?.readText()?.lines()?.dropLastWhile { it.isEmpty() }?.take(2)
 

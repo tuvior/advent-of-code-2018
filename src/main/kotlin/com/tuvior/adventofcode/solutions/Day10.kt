@@ -1,6 +1,7 @@
 package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
+import com.tuvior.adventofcode.util.Vector
 
 class Day10 : Day<Light, Any>(10, "The Stars Align") {
 
@@ -35,8 +36,6 @@ class Day10 : Day<Light, Any>(10, "The Stars Align") {
     }
 
 }
-
-typealias Vector = Pair<Int, Int>
 
 class Light(private val position: Vector, private val velocity: Vector) {
 

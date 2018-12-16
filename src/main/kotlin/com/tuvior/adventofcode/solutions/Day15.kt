@@ -1,6 +1,9 @@
 package com.tuvior.adventofcode.solutions
 
 import com.tuvior.adventofcode.day.Day
+import com.tuvior.adventofcode.util.Vector
+import com.tuvior.adventofcode.util.compareTo
+import com.tuvior.adventofcode.util.neighbors
 import com.tuvior.adventofcode.util.takeWhileInclusive
 import java.util.*
 
@@ -10,9 +13,7 @@ class Day15 : Day<String, Int>(15, "Beverage Bandits") {
 
     override fun solutionPart1(inputData: Sequence<String>): Int {
         val (map, units) = parseMap(inputData)
-
         val victoryRound = generateSequence { turn(map, units) }.indexOfFirst { it == Victory }
-
         val totalHp = units.filter { it.alive }.sumBy { it.hp }
 
         return victoryRound * totalHp
@@ -26,7 +27,7 @@ class Day15 : Day<String, Int>(15, "Beverage Bandits") {
                 .takeWhileInclusive { it != Victory && it != ElfDeath }
                 .toList()
 
-            if (simulation.any { it == ElfDeath }) power++
+            if (simulation.last() == ElfDeath) power++
             else {
                 val winningRound = simulation.size - 1
                 val totalHp = units.filter { it.alive }.sumBy { it.hp }
@@ -36,15 +37,15 @@ class Day15 : Day<String, Int>(15, "Beverage Bandits") {
     }
 
     private fun turn(map: Array<Array<Char>>, units: List<Unit>, stopOnDeath: Boolean = false): TurnResult {
-        val sorted = units.filter { it.alive }.sortedWith(compareBy({ it.pos.second }, { it.pos.first }))
+        val sorted = units.filter { it.alive }.sorted()
 
         for (unit in sorted) {
             if (!unit.alive) continue
 
-            val status = unit.act(map, sorted)
-
-            if (status == Victory) return status
-            else if (status == ElfDeath && stopOnDeath) return status
+            when (unit.act(map, sorted)) {
+                Victory -> return Victory
+                ElfDeath -> if (stopOnDeath) return ElfDeath
+            }
         }
 
         return EndTurn
@@ -65,19 +66,20 @@ class Day15 : Day<String, Int>(15, "Beverage Bandits") {
 }
 
 
-private sealed class Unit(var pos: Vector, var hp: Int = 200, var power: Int, val type: Char) {
+private sealed class Unit(var pos: Vector, var power: Int, var hp: Int = 200, val type: Char) : Comparable<Unit> {
     var alive = true
     val neighbors get() = pos.neighbors
 
-    fun act(map: Array<Array<Char>>, units: List<Unit>): TurnResult {
-        val enemies = units.filter { it.alive }.filter { it.type != type }
-            .sortedWith(compareBy({ it.pos.second }, { it.pos.first }))
-        val otherUnitPos = units.filter { it.alive && it != this }.map { it.pos }.toSet()
+    override fun compareTo(other: Unit): Int = pos.compareTo(other.pos)
 
+    fun act(map: Array<Array<Char>>, units: List<Unit>): TurnResult {
+        val enemies = units.filter { it.alive }.filter { it.type != type }.sorted()
         if (enemies.isEmpty()) return Victory
 
-        val attackPositions =
-            enemies.flatMap { it.neighbors.filterNot { p -> p in otherUnitPos || map[p.second][p.first] == '#' } }
+        val otherUnitPos = units.filter { it.alive && it != this }.map { it.pos }.toSet()
+
+        val attackPositions = enemies
+            .flatMap { it.neighbors.filterNot { p -> p in otherUnitPos || map[p.second][p.first] == '#' } }
 
         if (pos !in attackPositions) {
             move(map, attackPositions, otherUnitPos)
@@ -105,14 +107,14 @@ private sealed class Unit(var pos: Vector, var hp: Int = 200, var power: Int, va
     }
 
     private fun move(map: Array<Array<Char>>, attackPositions: List<Vector>, otherUnitPos: Set<Vector>) {
-        val Q = LinkedList<Pair<Vector, Int>>()
+        val pending = LinkedList<Pair<Vector, Int>>()
         val pred = mutableMapOf<Vector, Pair<Int, Vector>>()
         val visited = mutableSetOf<Vector>()
 
-        Q += pos to 0
+        pending += pos to 0
 
-        while (Q.isNotEmpty()) {
-            val (next, dist) = Q.pop()
+        while (pending.isNotEmpty()) {
+            val (next, dist) = pending.pop()
 
             next.neighbors.forEach { n ->
                 val nDist = dist + 1
@@ -123,15 +125,14 @@ private sealed class Unit(var pos: Vector, var hp: Int = 200, var power: Int, va
                     pred[n] = nDist to next
                 }
                 if (n !in visited) {
-                    Q += n to nDist
+                    pending += n to nDist
                 }
                 visited += n
             }
         }
 
         val candidate = pred.filterKeys { it in attackPositions }
-            .entries
-            .sortedWith(compareBy({ it.value.first }, { it.key.second }, { it.key.first }))
+            .entries.sortedWith(compareBy({ it.value.first }, { it.key.second }, { it.key.first }))
             .firstOrNull() ?: return
 
         var t = candidate.key
@@ -144,24 +145,11 @@ private sealed class Unit(var pos: Vector, var hp: Int = 200, var power: Int, va
     }
 }
 
-private class Elf(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, hp, power, 'E')
-private class Goblin(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, hp, power, 'G')
+private class Elf(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, power, hp, 'E')
+private class Goblin(pos: Vector, power: Int = 3, hp: Int = 200) : Unit(pos, power, hp, 'G')
 
 sealed class TurnResult
 object EndTurn : TurnResult()
 object Victory : TurnResult()
 object ElfDeath : TurnResult()
 object GoblinDeath : TurnResult()
-
-operator fun Vector.compareTo(other: Vector): Int {
-    return if (second.compareTo(other.second) == 0) first.compareTo(other.first)
-    else second.compareTo(other.second)
-}
-
-val Vector.neighbors
-    get() = listOf(
-        first to second - 1,
-        first + 1 to second,
-        first to second + 1,
-        first - 1 to second
-    )

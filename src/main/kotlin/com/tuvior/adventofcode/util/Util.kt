@@ -15,3 +15,18 @@ fun <T> Sequence<T>.takeWhileInclusive(pred: (T) -> Boolean): Sequence<T> {
         result
     }
 }
+
+typealias Vector = Pair<Int, Int>
+
+operator fun Vector.compareTo(other: Vector): Int {
+    return if (second.compareTo(other.second) == 0) first.compareTo(other.first)
+    else second.compareTo(other.second)
+}
+
+val Vector.neighbors
+    get() = listOf(
+        first to second - 1,
+        first + 1 to second,
+        first to second + 1,
+        first - 1 to second
+    )
