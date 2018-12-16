@@ -31,7 +31,7 @@ The general goals of each solution are as follows:
 | 13 | [Mine Cart Madness](https://adventofcode.com/2018/day/13)          | ⭐ ⭐ |
 | 14 | [Chocolate Charts](https://adventofcode.com/2018/day/14)           | ⭐ ⭐ |
 | 15 | [Beverage Bandits](https://adventofcode.com/2018/day/15)           | ⭐ ⭐ |
-| 16 | ????                        | ⚫ ⚫ |
+| 16 | [Chronal Classification](https://adventofcode.com/2018/day/16)     | ⭐ ⭐ |
 | 17 | ????                        | ⚫ ⚫ |
 | 18 | ????                        | ⚫ ⚫ |
 | 19 | ????                        | ⚫ ⚫ |
