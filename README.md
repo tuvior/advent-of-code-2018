@@ -32,7 +32,7 @@ The general goals of each solution are as follows:
 | 14 | [Chocolate Charts](https://adventofcode.com/2018/day/14)           | ⭐ ⭐ |
 | 15 | [Beverage Bandits](https://adventofcode.com/2018/day/15)           | ⭐ ⭐ |
 | 16 | [Chronal Classification](https://adventofcode.com/2018/day/16)     | ⭐ ⭐ |
-| 17 | ????                        | ⚫ ⚫ |
+| 17 | [Reservoir Research](https://adventofcode.com/2018/day/17)         | ⭐ ⭐ |
 | 18 | ????                        | ⚫ ⚫ |
 | 19 | ????                        | ⚫ ⚫ |
 | 20 | ????                        | ⚫ ⚫ |
