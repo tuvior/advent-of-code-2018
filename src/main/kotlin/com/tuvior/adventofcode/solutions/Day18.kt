@@ -42,11 +42,13 @@ class Day18 : Day<String, Int>(18, "Settlers of The North Pole") {
     }
 
     private fun update(map: Array<Array<Acre>>, acres: List<Acre>) {
-        for (y in 0 until 50) {
-            for (x in 0 until 50) {
+        val h = map.size
+        val w = map[0].size
+        for (y in 0 until h) {
+            for (x in 0 until w) {
                 val acre = map[y][x]
-                val r = (x + 1).coerceAtMost(49)
-                val d = (y + 1).coerceAtMost(49)
+                val r = (x + 1).coerceAtMost(w - 1)
+                val d = (y + 1).coerceAtMost(h - 1)
                 val l = (x - 1).coerceAtLeast(0)
                 val u = (y - 1).coerceAtLeast(0)
                 val (trees, yards) = (l..r)
