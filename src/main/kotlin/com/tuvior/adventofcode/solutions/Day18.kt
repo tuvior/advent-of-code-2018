@@ -63,18 +63,9 @@ class Day18 : Day<String, Int>(18, "Settlers of The North Pole") {
                     }
 
                 when (acre.state) {
-                    '.' -> {
-                        if (trees >= 3) acre.nextState = '|'
-                        else acre.nextState = acre.state
-                    }
-                    '|' -> {
-                        if (yards >= 3) acre.nextState = '#'
-                        else acre.nextState = acre.state
-                    }
-                    '#' -> {
-                        if (yards >= 1 && trees >= 1) acre.nextState = '#'
-                        else acre.nextState = '.'
-                    }
+                    '.' -> acre.nextState = if (trees >= 3) '|' else '.'
+                    '|' -> acre.nextState = if (yards >= 3) '#' else '|'
+                    '#' -> acre.nextState = if (yards >= 1 && trees >= 1) '#' else '.'
                 }
             }
         }
