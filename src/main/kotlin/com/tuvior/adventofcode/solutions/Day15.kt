@@ -94,10 +94,9 @@ private sealed class Unit(var pos: Vector, var power: Int, var hp: Int = 200, va
                 it.hp -= power
                 if (it.hp <= 0) {
                     it.alive = false
-                    return when (it.type) {
-                        'E' -> ElfDeath
-                        'G' -> GoblinDeath
-                        else -> EndTurn
+                    return when (it) {
+                        is Elf -> ElfDeath
+                        is Goblin -> GoblinDeath
                     }
                 }
             }
