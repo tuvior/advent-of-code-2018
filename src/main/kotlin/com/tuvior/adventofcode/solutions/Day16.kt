@@ -87,6 +87,6 @@ object eqrr : Op({ r, a, b -> if (r[a] == r[b]) 1 else 0 })
 
 val ops = listOf(addr, addi, mulr, muli, banr, bani, borr, bori, setr, seti, gtir, gtri, gtrr, eqir, eqri, eqrr)
 
-class Instruction(val opcode: Int, val a: Int, val b: Int, val c: Int)
+open class Instruction(val opcode: Int, val a: Int, val b: Int, val c: Int)
 
 typealias Register = IntArray

@@ -34,7 +34,7 @@ The general goals of each solution are as follows:
 | 16 | [Chronal Classification](https://adventofcode.com/2018/day/16)     | ⭐ ⭐ |
 | 17 | [Reservoir Research](https://adventofcode.com/2018/day/17)         | ⭐ ⭐ |
 | 18 | [Settlers of The North Pole](https://adventofcode.com/2018/day/18) | ⭐ ⭐ |
-| 19 | ????                        | ⚫ ⚫ |
+| 19 | [Go With The Flow](https://adventofcode.com/2018/day/19)           | ⭐ ⭐ |
 | 20 | ????                        | ⚫ ⚫ |
 | 21 | ????                        | ⚫ ⚫ |
 | 22 | ????                        | ⚫ ⚫ |
